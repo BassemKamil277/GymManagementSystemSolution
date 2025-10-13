@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementDAL.Repositories.Interfaces
 {
-    public interface IGenaricRepository<TEntity> where TEntity : BaseEntity , new()
+    public interface IGenaricRepository<TEntity> where TEntity : BaseEntity, new()
     {
         TEntity? GetById(int id);
 
@@ -18,9 +18,5 @@ namespace GymManagementDAL.Repositories.Interfaces
         void Update(TEntity entity);
 
         void Delete(TEntity entity);
-
-        
-
-        
     }
 }

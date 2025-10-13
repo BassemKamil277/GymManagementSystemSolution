@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementDAL.Repositories.Classes
 {
-    public class GenaricRepository<TEntity> : IGenaricRepository<TEntity> where TEntity : BaseEntity, new()
+    internal class GenaricRepository<TEntity> : IGenaricRepository<TEntity> where TEntity : BaseEntity, new()
     {
         private readonly GymDbContext _dbContext;
 
@@ -20,14 +20,14 @@ namespace GymManagementDAL.Repositories.Classes
         }
         public void Add(TEntity entity)
         {
-           _dbContext.Set<TEntity>().Add(entity);
-           
+            _dbContext.Set<TEntity>().Add(entity);
+
         }
 
         public void Delete(TEntity entity)
         {
             _dbContext.Set<TEntity>().Remove(entity);
-         
+
         }
 
         public IEnumerable<TEntity> GetAll(Func<TEntity, bool>? condition = null)
@@ -37,7 +37,7 @@ namespace GymManagementDAL.Repositories.Classes
             else
                 return _dbContext.Set<TEntity>().AsNoTracking().Where(condition).ToList();
         }
-    
+
 
         public TEntity? GetById(int id) => _dbContext.Set<TEntity>().Find(id);
 

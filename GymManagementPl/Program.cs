@@ -24,7 +24,8 @@ namespace GymManagementPl
             /*builder.Services.AddScoped(typeof(GenaricRepository<>) , typeof(GenaricRepository<>));*/ // b2olo en wa2t m t7tag GenaricRepository of ay haga da hay3mlo
             //builder.Services.AddScoped(typeof(IGenaricRepository<>), typeof(GenaricRepository<>)); // b2olo en wa2t m t7tag GenaricRepository of ay haga da hay3mlo...w 3mltha 3la el interface 34an y2bl el inter face nafsha aw ay haga btwrs mnha 
             //builder.Services.AddScoped<IPlanRepository , PlanRepository>();
-            builder.Services.AddScoped<IUintOFWork ,UintOFWork>();
+            builder.Services.AddScoped<IUintOFWork, UintOfWork>();
+
 
             var app = builder.Build();
 

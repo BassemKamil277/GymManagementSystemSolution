@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace GymManagementDAL.Repositories.Classes
 {
-    public class UintOFWork : IUintOFWork
+    public class UintOfWork : IUintOFWork
     {
         private readonly GymDbContext _dbContext;
 
-        public UintOFWork(GymDbContext dbContext)
+        public UintOfWork(GymDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -36,7 +36,7 @@ namespace GymManagementDAL.Repositories.Classes
 
         public int SaveChanges()
         {
-           return _dbContext.SaveChanges();
+            return _dbContext.SaveChanges();
         }
     }
 }
