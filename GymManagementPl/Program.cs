@@ -1,5 +1,7 @@
 using AutoMapper;
 using GymManagementBLL;
+using GymManagementBLL.Services.Classes;
+using GymManagementBLL.Services.Interfaces;
 using GymManagementDAL.Data.Contexts;
 using GymManagementDAL.Data.DataSeed;
 using GymManagementDAL.Entities;
@@ -30,6 +32,7 @@ namespace GymManagementPl
             builder.Services.AddScoped<IUintOFWork, UintOfWork>();
             builder.Services.AddScoped<ISessionRepository , SessionRepository>();
             builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfile()));
+            builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
 
 
             var app = builder.Build();
