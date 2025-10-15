@@ -9,6 +9,7 @@ namespace GymManagementDAL.Repositories.Interfaces
 {
     public interface IUintOFWork
     {
+        public ISessionRepository SessionRepository { get; }
         IGenaricRepository<TEntity> GetRepository<TEntity>() where TEntity : BaseEntity, new();
 
         int SaveChanges();

@@ -1,4 +1,7 @@
+using AutoMapper;
+using GymManagementBLL;
 using GymManagementDAL.Data.Contexts;
+using GymManagementDAL.Data.DataSeed;
 using GymManagementDAL.Entities;
 using GymManagementDAL.Repositories.Classes;
 using GymManagementDAL.Repositories.Interfaces;
@@ -25,9 +28,27 @@ namespace GymManagementPl
             //builder.Services.AddScoped(typeof(IGenaricRepository<>), typeof(GenaricRepository<>)); // b2olo en wa2t m t7tag GenaricRepository of ay haga da hay3mlo...w 3mltha 3la el interface 34an y2bl el inter face nafsha aw ay haga btwrs mnha 
             //builder.Services.AddScoped<IPlanRepository , PlanRepository>();
             builder.Services.AddScoped<IUintOFWork, UintOfWork>();
+            builder.Services.AddScoped<ISessionRepository , SessionRepository>();
+            builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfile()));
 
 
             var app = builder.Build();
+
+            #region Seed Data - Migrate data base 
+            //el tari2a dy 34an a3rf akhod object mn dbContext zy m b3ml bs hna msh haynf3 a3ml constractor
+            using var Scoped = app.Services.CreateScope(); // kda ana mskt el scope ely feh kol el objects ely m3mol leha allow ll debendancy injections ely el live time bta3ha "scope" zy el "dbcontext" aw "unitOfWork"
+            var dbContext = Scoped.ServiceProvider.GetRequiredService<GymDbContext>(); // kda ana msk el object ely 3aizo 
+            var PendingMigrations = dbContext.Database.GetPendingMigrations(); // da byshof ay migrations msh m3mol leha update fl data base
+            if (PendingMigrations?.Any() ?? false)
+                dbContext.Database.Migrate();
+             
+
+            GymDbContextDataSeeding.SeedData(dbContext);
+
+            #endregion
+
+
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
