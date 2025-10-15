@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementBLL.Services.Classes
 {
-    internal class MemberService : IMemberService
+    public class MemberService : IMemberService
     {
         private readonly IUintOFWork _uintOFWork;
         private readonly IMapper _mapper;
@@ -97,13 +97,13 @@ namespace GymManagementBLL.Services.Classes
             }
         }
 
-
         public MemberViewModel? GetMemberDetails(int MemberId)
         {
            var member = _uintOFWork.GetRepository<Member>().GetById(MemberId);
             if (member == null) return null;
 
             var mappedMember = _mapper.Map<Member, MemberViewModel>(member);
+
             #region manual 
             // manual mappng from memberViewModel to Member
             //var ViewModel = new MemberViewModel()
@@ -114,7 +114,7 @@ namespace GymManagementBLL.Services.Classes
             //    Photo = member.Photo,
             //    Gender = member.Gender.ToString(),
             //    DateOfBirth = member.DateOfBirth.ToShortDateString(),
-            //    Address = $"{member.Address.BuildingNumber} -{member.Address.Street} - {member.Address.City}"
+            //    Address = $"{member.Address.BuildingNumber} - {member.Address.Street} - {member.Address.City}"
 
             //}; 
             #endregion
@@ -173,7 +173,13 @@ namespace GymManagementBLL.Services.Classes
         {
            try
             {
-                if (IsEmailExists(memberToUpdate.Email) || IsPhoneExists(memberToUpdate.Phone)) return false;
+                var emailexist = _uintOFWork.GetRepository<Member>()
+                                  .GetAll(x => x.Email == memberToUpdate.Email && x.Id != Id).Any();
+
+                var phoneexist = _uintOFWork.GetRepository<Member>()
+                               .GetAll(x => x.Phone == memberToUpdate.Phone &&  x.Id!= Id).Any();
+
+                if (emailexist || phoneexist) return false;
 
                 var member = _uintOFWork.GetRepository<Member>().GetById(Id);
                 if (member == null) return false;
@@ -183,7 +189,7 @@ namespace GymManagementBLL.Services.Classes
                 //member.Address.BuildingNumber = memberToUpdate.BuildingNumber;
                 //member.Address.Street = memberToUpdate.Street;
                 //member.Address.City = memberToUpdate.City;
-                member.CreatedAt = DateTime.Now; // 34an ana m5leha t update fy akher 2t et3ml feh changes
+                /*member.CreatedAt = DateTime.Now;*/ // 34an ana m5leha t update fy akher 2t et3ml feh changes
 
                 _mapper.Map(memberToUpdate, member);
                 _uintOFWork.GetRepository<Member>().Update(member) ; 
@@ -202,8 +208,11 @@ namespace GymManagementBLL.Services.Classes
                 var member = _uintOFWork.GetRepository<Member>().GetById(MemberId);
                 if(member == null) return false;
 
-                var HasActiveMemberSession = _uintOFWork.GetRepository<MemberSession>()
-                 .GetAll(x => x.Id == MemberId && x.Session.StartDate > DateTime.Now).Any();
+                var SessionIds = _uintOFWork.GetRepository<MemberSession>()
+                 .GetAll(x => x.Id == MemberId).Select(x => x.SessionId);
+
+                var HasActiveMemberSession = _uintOFWork.GetRepository<Session>()
+                  .GetAll(x => SessionIds.Contains(x.Id) && x.StartDate > DateTime.Now).Any();
 
                 if (HasActiveMemberSession) return false;
 

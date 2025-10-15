@@ -8,8 +8,12 @@ using System.Threading.Tasks;
 
 namespace GymManagementBLL.ViewModels.TrainerViewModel
 {
-    internal class UpdateTrainerViewModel
+
+    public class UpdateTrainerViewModel
     {
+        public string Name { get; set; } = null!;
+
+
         [Required(ErrorMessage = "Email Is Required")]
         [StringLength(100, MinimumLength = 5, ErrorMessage = "Email must be Between 5 and 100")]
         [DataType(DataType.EmailAddress)]
@@ -39,7 +43,7 @@ namespace GymManagementBLL.ViewModels.TrainerViewModel
         [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "City must contain only this letters")]
         public string City { get; set; } = null!;
 
-
+        [Required(ErrorMessage = "Specialty is Required")]
         public Specialties Specialties { get; set; } 
     }
 }

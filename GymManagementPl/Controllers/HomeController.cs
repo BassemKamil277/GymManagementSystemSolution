@@ -11,7 +11,7 @@ namespace GymManagementPl.Controllers
         {
             _analyticsService = analyticsService;
         }
-        public IActionResult Index() // esmha Actions msh function 
+        public ActionResult Index() // esmha Actions msh function 
         {
 
             var data = _analyticsService.GetAnalyticsData();

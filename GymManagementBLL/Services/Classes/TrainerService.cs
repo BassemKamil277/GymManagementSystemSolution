@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementBLL.Services.Classes
 {
-    internal class TrainerService : ITrainerService
+    public class TrainerService : ITrainerService
     {
         private readonly IUintOFWork _uintOFWork;
         private readonly IMapper _mapper;
@@ -68,7 +68,14 @@ namespace GymManagementBLL.Services.Classes
             //    Phone = model.Phone,
             //    Gender = model.Gender,
             //    DateOfBirth = model.DateOfBirth,
-            //    Specialties = model.Specialties
+            //    Specialties = model.Specialties,
+            //    Address = new Address()
+            //    {
+            //        BuildingNumber = model.BuildingNumber,
+            //        Street = model.Street,
+            //        City = model.City,
+            //    }
+
             //};
             var trainer = _mapper.Map<CreateTrainerVieModel, Trainer>(model); 
             _uintOFWork.GetRepository<Trainer>().Add(trainer);
@@ -99,6 +106,7 @@ namespace GymManagementBLL.Services.Classes
         {
            try
             {
+
                 var trainer = _uintOFWork.GetRepository<Trainer>().GetById(TrainerId);
                 if (trainer == null) return false;
 
@@ -108,7 +116,7 @@ namespace GymManagementBLL.Services.Classes
                 //trainer.Address.Street = UpdateTrainer.Street;
                 //trainer.Address.City = UpdateTrainer.City;
                 //trainer.Specialties = UpdateTrainer.Specialties;
-                trainer.CreatedAt = DateTime.Now;
+                //trainer.CreatedAt = DateTime.Now;
 
                 _mapper.Map<UpdateTrainerViewModel, Trainer>(UpdateTrainer);
                 _uintOFWork.GetRepository<Trainer>().Update(trainer);

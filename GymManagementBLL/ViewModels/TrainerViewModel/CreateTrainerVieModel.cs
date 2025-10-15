@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementBLL.ViewModels.TrainerViewModel
 {
-    internal class CreateTrainerVieModel
+    public class CreateTrainerVieModel
     {
         [Required(ErrorMessage = "Name Is Required")]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Name must be Between 2 and 50")]
@@ -55,6 +55,9 @@ namespace GymManagementBLL.ViewModels.TrainerViewModel
         [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "City must contain only this letters")]
         public string City { get; set; } = null!;
 
+
+        [Required(ErrorMessage = "Specialty is Required")]
+        [EnumDataType(typeof(Specialties))]
         public Specialties Specialties { get; set; }
 
     }
