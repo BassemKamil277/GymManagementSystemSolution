@@ -20,6 +20,36 @@ namespace GymManagementPl.Controllers
             var Trainer = _trainerService.GetAllTrainers();
             return View(Trainer);
         }
+
+        #endregion
+
+        #region create
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateTrainer(CreateTrainerVieModel model)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View(nameof(Create) , model);
+            }
+
+            var result = _trainerService.CreateTrainer(model);
+            if (result)
+            {
+                TempData["Success Message"] = "Trainer created successfuly";
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                ModelState.AddModelError ("" , "Trainer faild create");
+                return View(model);
+            }
+        }
+
         #endregion
 
         #region getTrainerDetails

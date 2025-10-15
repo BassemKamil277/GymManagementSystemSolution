@@ -41,6 +41,12 @@ namespace GymManagementBLL
             CreateMap<CreateSessionViewModel, Session>();
 
             CreateMap<Session, UpdateSessionViewModel>().ReverseMap(); // reverse =  CreateMap<UpdateSessionViewModel , Session>()
+
+            CreateMap<Trainer, TrainerSelectViewModel>();
+
+            CreateMap<Category, CategorySelectViewModel>()
+                      .ForMember(dest => dest.Name,
+                      option => option.MapFrom(src => src.CategoryName));
         }
 
         private void MapMember()
@@ -139,6 +145,8 @@ namespace GymManagementBLL
                 dest.Address.Street = src.Street;
                 dest.UpdatedAt = DateTime.Now;
             });
+
+   
         }
     }
 }

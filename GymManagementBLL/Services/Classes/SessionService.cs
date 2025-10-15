@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementBLL.Services.Classes
 {
-    internal class SessionService : ISessionService
+    public class SessionService : ISessionService
     {
         // 34an a3ml auto mapping lazm atlob mn el CLR y3mly obj mn interface esmha IMapper
         private readonly IUintOFWork _uintOFWork;
@@ -124,6 +124,21 @@ namespace GymManagementBLL.Services.Classes
             }
         }
 
+        public IEnumerable<TrainerSelectViewModel> GetAllTrainersForDropDown()
+        {
+            var Trainers = _uintOFWork.GetRepository<Trainer>().GetAll();
+
+            return _mapper.Map<IEnumerable<Trainer>, IEnumerable<TrainerSelectViewModel> >(Trainers);
+        }
+
+        public IEnumerable<CategorySelectViewModel> GetAlCategpriesForDropDown()
+        {
+            var Category = _uintOFWork.GetRepository<Category>().GetAll();
+
+            return _mapper.Map<IEnumerable<Category>, IEnumerable<CategorySelectViewModel>>(Category);
+        }
+
+
         #region Helper Method
         private bool IsTrainerExist(int TrainerId)
         {
@@ -167,6 +182,7 @@ namespace GymManagementBLL.Services.Classes
 
         }
 
+  
 
         #endregion
 

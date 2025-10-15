@@ -3,16 +3,23 @@
 <div class="container">
     <main role="main" class="pb-3">
 
-        @*     <div id="Alert" class="alert alert-success alert-dismissible fade show">
+        @if(  TempData["Success Message"] != null)
+        {
+             <div id="Alert" class="alert alert-success alert-dismissible fade show">
             <i class="bi bi-check-circle-fill me-2"></i>
             SuccessMessage
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-        <div id="Alert" class="alert alert-danger alert-dismissible fade show">
-            <i class="bi bi-exclamation-triangle-fill me-2"></i>
-            ErrorMessage
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div> *@
+            </div>
+        }
+        else if (TempData["Error Message"] != null)
+                {
+                <div id="Alert" class="alert alert-danger alert-dismissible fade show">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    ErrorMessage
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                }
+
 
 
         <div class="container">

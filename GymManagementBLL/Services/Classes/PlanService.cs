@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace GymManagementBLL.Services.Classes
 {
-    internal class PlanService : IPlanService
+    public class PlanService : IPlanService
     {
         private readonly IUintOFWork _uintOFWork;
         private readonly IMapper _mapper;
