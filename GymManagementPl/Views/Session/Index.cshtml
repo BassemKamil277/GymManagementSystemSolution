@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<SessionViewModel>
 
+@{
+    ViewData["Title"] = "Sessions";
+}
+
 @if (TempData["Success Message"] != null)
 {
     <div id="Alert" class="alert alert-success alert-dismissible fade show">
@@ -38,7 +42,7 @@ else if (TempData["Error Message"] != null)
                         <!-- If Session Ongoing  bg-success -->
                         <!-- If Session Upcoming  bg-primary -->
                         <!-- If Session Completed  bg-secondary -->
-                        <div class="card-header text-white py-3 " @(session.Status == "OnGoing" ? "bg-success" : session.Status == "UpComing" ? "bg-primary" : "bg-secondary")>
+                            <div class="card-header text-white py-3 @(session.Status == "OnGoing" ? "bg-success" : session.Status == "UpComing" ? "bg-primary" : "bg-secondary")">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">
                                     <i class="bi bi-calendar-event me-2"></i>@session.CategoryName

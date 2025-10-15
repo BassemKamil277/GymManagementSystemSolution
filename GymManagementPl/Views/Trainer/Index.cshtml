@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<TrainerViewModel>
+@{
+    ViewData["Title"] = "Trainers";
+}
 
 <div class="container">
     <main role="main" class="pb-3">
@@ -56,14 +59,14 @@
                                     <td><span>@trainer.Email</span></td>
                                     <td><span>@trainer.Phone</span></td>
                                     <td>
-                                        <span class="badge bg-primary-color">GeneralFitness</span>
+                                        <span class="badge bg-primary-color">@trainer.Specialties</span>
                                     </td>
                                     <td class="action position-relative">
                                         <div class="dropdown">
                                             <button class="btn btn-link p-0 border-0" type="button"
                                                     id="dropdownMenuButton-@Model trainer.Id" data-bs-toggle="dropdown"
                                                     aria-expanded="false">
-                                                <img src="./images/action dots.jpg" alt="action icon" />
+                                                <img src="~/images/action dots.jpg" alt="action icon" />
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-start"
                                                 aria-labelledby="dropdownMenuButton-@Model trainer.Id">
